@@ -5,6 +5,17 @@ import pandas as pd                   # import the tool that organizes data into
 
 app = FastAPI()                       # create the web server application
 
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+
 model = joblib.load("model.pkl")      # load the trained model from disk into memory
 
 class Transaction(BaseModel):         # define a shape that describes what a valid request looks like
@@ -40,9 +51,13 @@ class Transaction(BaseModel):         # define a shape that describes what a val
     Amount: float        
 
 
+@app.get("/")
+def read_root():
+    return {"message": "Fraud detection API is running"}
+
 @app.post("/predict")                 # when someone sends data to the /predict URL
 def predict(transaction: Transaction):  # run this function using the transaction shape to check their data
-    input_data = pd.DataFrame([transaction.dict()])   # turn their data from the rquest into a one-row table
+    input_data = pd.DataFrame([transaction.model_dump()])   # turn their data from the rquest into a one-row table
     prediction = model.predict(input_data)[0]          # ask the model fraud 1 or not 0
     probabilities = model.predict_proba(input_data)[0]  # ask the model how confident are you in each option
     confidence = probabilities[1] if prediction == 1 else probabilities[0]  # grab the confidence for whichever answer won
