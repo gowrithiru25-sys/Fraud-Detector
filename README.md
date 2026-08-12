@@ -85,8 +85,7 @@ Opens automatically at `http://localhost:8501`.
 
 ## Deployment
 
-*(Not yet deployed — running locally only for now. This section will be filled in with live URLs once the backend and frontend are hosted.)*
-
+*(Not yet deployed )
 - Backend URL: TBD
 - Frontend URL: TBD
 
