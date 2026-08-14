@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 import pandas as pd
 
-API_URL = "http://localhost:8000/predict"
+API_URL = "https://fraud-detector-backend-kzuo.onrender.com/predict"
 
 # @st.cache_data means run this function once, then reuse the result on
 # every rerun instead of reloading the whole CSV from disk every single time someone clicks a button
