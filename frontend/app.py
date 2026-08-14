@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
 import pandas as pd
+import os
 
 API_URL = "https://fraud-detector-backend-kzuo.onrender.com/predict"
 
@@ -8,7 +9,12 @@ API_URL = "https://fraud-detector-backend-kzuo.onrender.com/predict"
 # every rerun instead of reloading the whole CSV from disk every single time someone clicks a button
 @st.cache_data
 def load_data():
-    return pd.read_csv("../training/data/test_set.csv")
+    # Build the path relative to this script's own location, not
+    # whatever folder happened to be "current" when it was launched --
+    # this makes it work the same locally and on Streamlit Cloud.
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    csv_path = os.path.join(base_dir, "..", "training", "data", "test_set.csv")
+    return pd.read_csv(csv_path)
 
 data = load_data()
 
