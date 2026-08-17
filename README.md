@@ -85,7 +85,7 @@ Opens automatically at `http://localhost:8501`.
 
 ## Deployment
 
-*(Not yet deployed )
+
 - Backend URL: (https://fraud-detector-backend-kzuo.onrender.com
 - Frontend URL: https://fraud-detector-4mr8dwui38hnfqkshfkszs.streamlit.app/
 
